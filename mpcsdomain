@@ -102,9 +102,9 @@ def manage_subdomain(service=None, region=None,
     ip_address=ip_address, elb_name=elb_name)
 
   if response['ResponseMetadata']['HTTPStatusCode'] == 200:
-    print(f"{action} succeeded; {subdomain}.mpcs-cc.com --> {ip_address if ip_address is not None else elb_name}")
+    print(f"{action} succeeded; {subdomain}.mpcs-cloud.com --> {ip_address if ip_address is not None else elb_name}")
   else:
-    print(f"{action} failed for subdomain {subdomain}.mpcs-cc.com: {response['error']}")
+    print(f"{action} failed for subdomain {subdomain}.mpcs-cloud.com: {response['error']}")
 
 
 def cleanup_subdomains(service=None, zone_id=None, filter=None):
@@ -144,11 +144,11 @@ def parse_options():
          ec2-52-55-108-110.compute-1.amazonaws.com,
          the IP address is 52.55.108.110.
       2. Run: mpcsdomain create --subdomain <subdomain_name> --ip <IP_address>.
-         For example, to create a subdomain called "instructor-hw2.mpcs-cc.com"
+         For example, to create a subdomain called "instructor-hw2.mpcs-cloud.com"
          at the above IP address you would run:
          mpcsdomain create -subdomain instructor-hw2 -ip 52.55.108.110.
          Note that you must only specify first part of the domain name
-         (do not include the mpcs-cc.com part)\n
+         (do not include the mpcs-cloud.com part)\n
     To DELETE a subdomain:
       Use the "delete" command, which takes the same parameters:
       mpcsdomain delete --subdomain <subdomain> --ip <IP_address>\n
@@ -186,7 +186,7 @@ def parse_options():
     help='Creates a subdomain (A) record in Route 53.')
   parser_create.add_argument('--subdomain', required=True,
     help='The name of the subdomain to create, \
-    e.g. "instructor" creates instructor.mpcs-cc.com.')
+    e.g. "instructor" creates instructor.mpcs-cloud.com.')
   parser_create.add_argument('--ip',
     help='The public IP address to associate with the new subdomain.')
   parser_create.add_argument('--elb',
@@ -197,7 +197,7 @@ def parse_options():
     help='Deletes a subdomain in Route 53 and releases Elastic IP addresses.')
   parser_delete.add_argument('--subdomain', required=True,
     help='The name of the subdomain to delete, e.g. \
-    "cnetstudent-hw1" deletes cnetstudent-hw1.mpcs-cc.com.')
+    "cnetstudent-hw1" deletes cnetstudent-hw1.mpcs-cloud.com.')
   parser_delete.add_argument('--ip',
     help='The public IP address associated with the subdomain.')
   parser_delete.add_argument('--elb',
@@ -206,7 +206,7 @@ def parse_options():
   # Create the parser for the "update" command
   parser_update = subparsers.add_parser('update', help="Updates the subdomain's IP address.")
   parser_update.add_argument('--subdomain', required=True,
-    help='The name of the subdomain to update, e.g. "mysubdomain" updates mysubdomain.mpcs-cc.com.')
+    help='The name of the subdomain to update, e.g. "mysubdomain" updates mysubdomain.mpcs-cloud.com.')
   parser_update.add_argument('--ip',
     help='The new public IP address to associate with the subdomain.')
   parser_update.add_argument('--elb',
